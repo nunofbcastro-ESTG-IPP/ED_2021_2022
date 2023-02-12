@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Local.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt</a> &gt; <span class="el_source">Local.java</span></div><h1>Local.java</h1><pre class="source lang-java linenums">package estg.ipp.pt;
+
+import estg.ipp.pt.Enums.TipoLocal;
+import estg.ipp.pt.Interfaces.ILocal;
+
+public abstract class Local implements ILocal {
+    private String nome;
+    private TipoLocal tipo;
+
+<span class="fc" id="L10">    public Local(String nome, TipoLocal tipo) {</span>
+<span class="fc" id="L11">        this.nome = nome;</span>
+<span class="fc" id="L12">        this.tipo = tipo;</span>
+<span class="fc" id="L13">    }</span>
+
+    @Override
+    public String getNome() {
+<span class="fc" id="L17">        return nome;</span>
+    }
+
+    @Override
+    public void setNome(String nome) {
+<span class="nc" id="L22">        this.nome = nome;</span>
+<span class="nc" id="L23">    }</span>
+
+    @Override
+    public TipoLocal getTipo() {
+<span class="fc" id="L27">        return tipo;</span>
+    }
+
+    @Override
+    public void setTipo(TipoLocal tipo) {
+<span class="nc" id="L32">        this.tipo = tipo;</span>
+<span class="nc" id="L33">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L37">        final StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L38">        sb.append(&quot;\nNome: &quot;).append(nome);</span>
+<span class="fc" id="L39">        sb.append(&quot;\nTipo: &quot;).append(tipo);</span>
+<span class="fc" id="L40">        return sb.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LinkedStack.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt.DataStructures.Stack</a> &gt; <span class="el_source">LinkedStack.java</span></div><h1>LinkedStack.java</h1><pre class="source lang-java linenums">package estg.ipp.pt.DataStructures.Stack;
+
+import estg.ipp.pt.DataStructures.Exceptions.EmptyCollectionException;
+import estg.ipp.pt.DataStructures.Interfaces.StackADT;
+import estg.ipp.pt.DataStructures.Nodes.LinearNode;
+
+public class LinkedStack&lt;T&gt; implements StackADT&lt;T&gt; {
+
+    private LinearNode&lt;T&gt; head;
+    private int top;
+
+<span class="nc" id="L12">    public LinkedStack() {</span>
+<span class="nc" id="L13">        this.head = null;</span>
+<span class="nc" id="L14">        top = 0;</span>
+<span class="nc" id="L15">    }</span>
+
+    @Override
+    public void push(T element) {
+<span class="nc" id="L19">        LinearNode&lt;T&gt; tmp = this.head;</span>
+<span class="nc" id="L20">        this.head = new LinearNode&lt;&gt;(element);</span>
+<span class="nc" id="L21">        this.head.setNext(tmp);</span>
+<span class="nc" id="L22">        this.top++;</span>
+<span class="nc" id="L23">    }</span>
+
+    @Override
+    public T pop() throws EmptyCollectionException {
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (isEmpty()) {</span>
+<span class="nc" id="L28">            throw new EmptyCollectionException(&quot;DataStructures/Stack&quot;);</span>
+        }
+<span class="nc" id="L30">        T tmp = head.getElement();</span>
+<span class="nc" id="L31">        this.head=this.head.getNext();</span>
+<span class="nc" id="L32">        this.top--;</span>
+<span class="nc" id="L33">        return tmp;</span>
+    }
+
+    @Override
+    public T peek() throws EmptyCollectionException {        
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (isEmpty()) {</span>
+<span class="nc" id="L39">            throw new EmptyCollectionException(&quot;DataStructures/Stack&quot;);</span>
+        }
+<span class="nc" id="L41">        return head.getElement();</span>
+    }
+
+    @Override
+    public boolean isEmpty() {
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        return top == 0;</span>
+    }
+
+    @Override
+    public int size() {
+<span class="nc" id="L51">        return top;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

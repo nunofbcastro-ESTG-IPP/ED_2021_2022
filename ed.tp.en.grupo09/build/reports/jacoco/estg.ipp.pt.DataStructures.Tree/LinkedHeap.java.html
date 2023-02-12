@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LinkedHeap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt.DataStructures.Tree</a> &gt; <span class="el_source">LinkedHeap.java</span></div><h1>LinkedHeap.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package estg.ipp.pt.DataStructures.Tree;
+
+import estg.ipp.pt.DataStructures.Exceptions.EmptyCollectionException;
+import estg.ipp.pt.DataStructures.Interfaces.HeapADT;
+
+/**
+ * Heap implements a heap.
+ *
+ */
+public class LinkedHeap&lt;T&gt; extends LinkedBinaryTree&lt;T&gt; implements HeapADT&lt;T&gt; {
+
+    public HeapNode&lt;T&gt; lastNode;
+
+    public LinkedHeap() {
+<span class="nc" id="L19">        super();</span>
+<span class="nc" id="L20">    }</span>
+
+    /**
+     * Adds the specified element to this heap in the appropriate position
+     * according to its key value Note that equal elements are added to the
+     * right.
+     *
+     * @param obj the element to be added to this head
+     */
+    @Override
+    public void addElement(T obj) {
+<span class="nc" id="L31">        HeapNode&lt;T&gt; node = new HeapNode&lt;T&gt;(obj);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (root == null) {</span>
+<span class="nc" id="L33">            root = node;</span>
+        } else {
+<span class="nc" id="L35">            HeapNode&lt;T&gt; next_parent = getNextParentAdd();</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            if (next_parent.left == null) {</span>
+<span class="nc" id="L37">                next_parent.left = node;</span>
+            } else {
+<span class="nc" id="L39">                next_parent.right = node;</span>
+            }
+
+<span class="nc" id="L42">            node.parent = next_parent;</span>
+        }
+<span class="nc" id="L44">        lastNode = node;</span>
+<span class="nc" id="L45">        count++;</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (count &gt; 1) {</span>
+<span class="nc" id="L47">            heapifyAdd();</span>
+        }
+<span class="nc" id="L49">    }</span>
+
+    /**
+     * Returns the node that will be the parent of the new node
+     *
+     * @return the node that will be a parent of the new node
+     */
+    private HeapNode&lt;T&gt; getNextParentAdd() {
+<span class="nc" id="L57">        HeapNode&lt;T&gt; result = lastNode;</span>
+<span class="nc bnc" id="L58" title="All 4 branches missed.">        while ((result != root)</span>
+                &amp;&amp; (result.parent.left != result)) {
+<span class="nc" id="L60">            result = result.parent;</span>
+        }
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (result != root) {</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            if (result.parent.right == null) {</span>
+<span class="nc" id="L64">                result = result.parent;</span>
+            } else {
+<span class="nc" id="L66">                result = (HeapNode&lt;T&gt;) result.parent.right;</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                while (result.left != null) {</span>
+<span class="nc" id="L68">                    result = (HeapNode&lt;T&gt;) result.left;</span>
+                }
+            }
+        } else {
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            while (result.left != null) {</span>
+<span class="nc" id="L73">                result = (HeapNode&lt;T&gt;) result.left;</span>
+            }
+        }
+
+<span class="nc" id="L77">        return result;</span>
+    }
+
+    /**
+     * Reorders this heap after adding a node.
+     */
+    private void heapifyAdd() {
+        T temp;
+<span class="nc" id="L85">        HeapNode&lt;T&gt; next = lastNode;</span>
+
+<span class="nc" id="L87">        temp = next.element;</span>
+
+<span class="nc bnc" id="L89" title="All 4 branches missed.">        while ((next != root) &amp;&amp; (((Comparable) temp).compareTo(next.parent.element) &lt; 0)) {</span>
+<span class="nc" id="L90">            next.element = next.parent.element;</span>
+<span class="nc" id="L91">            next = next.parent;</span>
+        }
+<span class="nc" id="L93">        next.element = temp;</span>
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Remove the element with the lowest value in this heap and returns a
+     * reference to it. Throws an EmptyCollectionException if the heap is empty.
+     *
+     * @return the element with the lowest value in this heap
+     * @throws EmptyCollectionException if an empty collection exception occurs
+     */
+    @Override
+    public T removeMin() throws EmptyCollectionException {
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (isEmpty()) {</span>
+<span class="nc" id="L106">            throw new EmptyCollectionException(&quot;Empty Heap&quot;);</span>
+        }
+<span class="nc" id="L108">        T minElement = root.element;</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        if (count == 1) {</span>
+<span class="nc" id="L110">            root = null;</span>
+<span class="nc" id="L111">            lastNode = null;</span>
+        } else {
+<span class="nc" id="L113">            HeapNode&lt;T&gt; next_last = getNewLastNode();</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            if (lastNode.parent.left == lastNode) {</span>
+<span class="nc" id="L115">                lastNode.parent.left = null;</span>
+            } else {
+<span class="nc" id="L117">                lastNode.parent.right = null;</span>
+            }
+<span class="nc" id="L119">            root.element = lastNode.element;</span>
+<span class="nc" id="L120">            lastNode = next_last;</span>
+<span class="nc" id="L121">            heapifyRemove();</span>
+        }
+<span class="nc" id="L123">        count--;</span>
+
+<span class="nc" id="L125">        return minElement;</span>
+    }
+
+    /**
+     * Returns the node that will be the new last node after a remove.
+     *
+     * @return the node that willbe the new last node after a remove
+     */
+    private HeapNode&lt;T&gt; getNewLastNode() {
+<span class="nc" id="L134">        HeapNode&lt;T&gt; result = lastNode;</span>
+<span class="nc bnc" id="L135" title="All 4 branches missed.">        while ((result != root) &amp;&amp; (result.parent.left == result)) {</span>
+<span class="nc" id="L136">            result = result.parent;</span>
+        }
+
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        if (result != root) {</span>
+<span class="nc" id="L140">            result = (HeapNode&lt;T&gt;) result.parent.left;</span>
+        }
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        while (result.right != null) {</span>
+<span class="nc" id="L143">            result = (HeapNode&lt;T&gt;) result.right;</span>
+        }
+<span class="nc" id="L145">        return result;</span>
+    }
+
+    /**
+     * Reorders this heap after removing the root element.
+     */
+    private void heapifyRemove() {
+        T temp;
+<span class="nc" id="L153">        HeapNode&lt;T&gt; node = (HeapNode&lt;T&gt;) root;</span>
+<span class="nc" id="L154">        HeapNode&lt;T&gt; left = (HeapNode&lt;T&gt;) node.left;</span>
+<span class="nc" id="L155">        HeapNode&lt;T&gt; right = (HeapNode&lt;T&gt;) node.right;</span>
+        HeapNode&lt;T&gt; next;
+
+<span class="nc bnc" id="L158" title="All 4 branches missed.">        if ((left == null) &amp;&amp; (right == null)) {</span>
+<span class="nc" id="L159">            next = null;</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        } else if (left == null) {</span>
+<span class="nc" id="L161">            next = right;</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        } else if (right == null) {</span>
+<span class="nc" id="L163">            next = left;</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        } else if (((Comparable) left.element).compareTo(right.element) &lt; 0) {</span>
+<span class="nc" id="L165">            next = left;</span>
+        } else {
+<span class="nc" id="L167">            next = right;</span>
+        }
+<span class="nc" id="L169">        temp = node.element;</span>
+<span class="nc bnc" id="L170" title="All 4 branches missed.">        while ((next != null) &amp;&amp; (((Comparable) next.element).compareTo(temp) &lt; 0)) {</span>
+<span class="nc" id="L171">            node.element = next.element;</span>
+<span class="nc" id="L172">            node = next;</span>
+<span class="nc" id="L173">            left = (HeapNode&lt;T&gt;) node.left;</span>
+<span class="nc" id="L174">            right = (HeapNode&lt;T&gt;) node.right;</span>
+
+<span class="nc bnc" id="L176" title="All 4 branches missed.">            if ((left == null) &amp;&amp; (right == null)) {</span>
+<span class="nc" id="L177">                next = null;</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">            } else if (left == null) {</span>
+<span class="nc" id="L179">                next = right;</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">            } else if (right == null) {</span>
+<span class="nc" id="L181">                next = left;</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">            } else if (((Comparable) left.element).compareTo(right.element) &lt; 0) {</span>
+<span class="nc" id="L183">                next = left;</span>
+            } else {
+<span class="nc" id="L185">                next = right;</span>
+            }
+        }
+<span class="nc" id="L188">        node.element = temp;</span>
+<span class="nc" id="L189">    }</span>
+    
+    @Override
+    public T findMin() {
+<span class="nc" id="L193">       return this.lastNode.element;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

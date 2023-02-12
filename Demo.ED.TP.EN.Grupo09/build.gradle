@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+
+group 'application'
+version '1.0'
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(13))
+    }
+}
+
+application {
+    mainClass = 'application.Main'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    implementation name: 'ED.TP.EN.Grupo09-1.0'
+}
+
+test {
+    useJUnitPlatform()
+}

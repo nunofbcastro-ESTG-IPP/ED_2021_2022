@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Vendedor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt</a> &gt; <span class="el_source">Vendedor.java</span></div><h1>Vendedor.java</h1><pre class="source lang-java linenums">package estg.ipp.pt;
+
+import estg.ipp.pt.DataStructures.DoubleLinkedList.DoubleLinkedUnorderedList;
+import estg.ipp.pt.DataStructures.Exceptions.ElementNotFoundException;
+import estg.ipp.pt.DataStructures.Exceptions.EmptyCollectionException;
+import estg.ipp.pt.DataStructures.Interfaces.QueueADT;
+import estg.ipp.pt.DataStructures.Interfaces.UnorderedListADT;
+import estg.ipp.pt.Interfaces.ILocal;
+import estg.ipp.pt.Interfaces.IMercado;
+import estg.ipp.pt.Interfaces.IVendedor;
+
+import java.util.Iterator;
+
+public class Vendedor implements IVendedor {
+    private final int id;
+    private String name;
+    private int capacidade;
+    private int stock;
+    private final UnorderedListADT&lt;ILocal&gt; mercadosToVisit;
+    private static int actualIdVendedor;
+
+    static {
+<span class="fc" id="L23">        actualIdVendedor = 1;</span>
+<span class="fc" id="L24">    }</span>
+
+<span class="fc" id="L26">    public Vendedor(String name, int capacidade) {</span>
+<span class="fc" id="L27">        this.id = actualIdVendedor;</span>
+<span class="fc" id="L28">        this.name = name;</span>
+<span class="fc" id="L29">        this.capacidade = capacidade;</span>
+<span class="fc" id="L30">        this.stock = 0;</span>
+<span class="fc" id="L31">        this.mercadosToVisit = new DoubleLinkedUnorderedList&lt;&gt;();</span>
+<span class="fc" id="L32">        actualIdVendedor += 1;</span>
+<span class="fc" id="L33">    }</span>
+
+<span class="nc" id="L35">    public Vendedor(String name, int capacidade, int stock) {</span>
+<span class="nc" id="L36">        this.id = actualIdVendedor;</span>
+<span class="nc" id="L37">        this.name = name;</span>
+<span class="nc" id="L38">        this.capacidade = capacidade;</span>
+<span class="nc" id="L39">        this.stock = stock;</span>
+<span class="nc" id="L40">        this.mercadosToVisit = new DoubleLinkedUnorderedList&lt;&gt;();</span>
+<span class="nc" id="L41">        actualIdVendedor += 1;</span>
+<span class="nc" id="L42">    }</span>
+
+    @Override
+    public int getId() {
+<span class="nc" id="L46">        return id;</span>
+    }
+
+    @Override
+    public String getName() {
+<span class="nc" id="L51">        return name;</span>
+    }
+
+    @Override
+    public void setName(String name) {
+<span class="nc" id="L56">        this.name = name;</span>
+<span class="nc" id="L57">    }</span>
+
+    @Override
+    public int getCapacidade() {
+<span class="nc" id="L61">        return this.capacidade;</span>
+    }
+
+    @Override
+    public void setCapacidade(int capacidade) {
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if(capacidade &gt; 0){</span>
+<span class="nc" id="L67">            this.capacidade = capacidade;</span>
+        }
+<span class="nc" id="L69">    }</span>
+
+    @Override
+    public int getStock() {
+<span class="nc" id="L73">        return stock;</span>
+    }
+
+    @Override
+    public void setStock(int stock) {
+<span class="nc bnc" id="L78" title="All 4 branches missed.">        if(stock &gt; 0 &amp;&amp; (this.stock + stock &lt;= this.capacidade)){</span>
+<span class="nc" id="L79">            this.stock += stock;</span>
+        }
+<span class="nc" id="L81">    }</span>
+
+    @Override
+    public boolean addMercadoToVisit(IMercado mercado) {
+<span class="fc bfc" id="L85" title="All 4 branches covered.">        if (mercado!=null &amp;&amp; !mercadosToVisit.contains(mercado)) {</span>
+<span class="fc" id="L86">            this.mercadosToVisit.addToRear(mercado);</span>
+<span class="fc" id="L87">            return true;</span>
+        }
+
+<span class="fc" id="L90">        return false;</span>
+    }
+
+    @Override
+    public boolean removeMercado(IMercado mercado) {
+<span class="fc bfc" id="L95" title="All 4 branches covered.">        if(mercado != null &amp;&amp; mercadosToVisit.contains(mercado)){</span>
+            try {
+<span class="fc" id="L97">                mercadosToVisit.remove(mercado);</span>
+<span class="fc" id="L98">                return true;</span>
+<span class="nc" id="L99">            } catch (EmptyCollectionException e) {</span>
+<span class="nc" id="L100">                e.printStackTrace();</span>
+<span class="nc" id="L101">            } catch (ElementNotFoundException e) {</span>
+<span class="nc" id="L102">                e.printStackTrace();</span>
+<span class="nc" id="L103">            }</span>
+        }
+
+<span class="fc" id="L106">        return false;</span>
+    }
+
+    @Override
+    public boolean satisfazerClientes(IMercado mercado) {
+        int currentClient;
+
+<span class="nc" id="L113">        Iterator&lt;Integer&gt; clientesIt = mercado.getClientes();</span>
+
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        while (clientesIt.hasNext()){</span>
+<span class="nc" id="L116">            currentClient = clientesIt.next();</span>
+<span class="nc bnc" id="L117" title="All 4 branches missed.">            if(this.stock &gt;= currentClient &amp;&amp; currentClient &lt;= getCapacidade()){</span>
+<span class="nc" id="L118">                this.stock -= currentClient;</span>
+<span class="nc" id="L119">                System.out.println(&quot;\t&quot; + this.name + &quot; satisfez o cliente com uma quantidade de mercadoria de &quot; + currentClient);</span>
+<span class="nc" id="L120">                mercado.removeCliente();</span>
+            } else{
+<span class="nc" id="L122">                return false;</span>
+            }
+        }
+
+<span class="nc" id="L126">        return true;</span>
+    }
+
+    @Override
+    public Iterator&lt;ILocal&gt; getMercadosToVisit() {
+<span class="nc" id="L131">        return mercadosToVisit.iterator();</span>
+    }
+
+    @Override
+    public ILocal getCurrentMercadoToVisit() throws EmptyCollectionException {
+<span class="nc" id="L136">        return mercadosToVisit.first();</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L141">        final StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L142">        Iterator&lt;ILocal&gt; mercados = getMercadosToVisit();</span>
+<span class="nc" id="L143">        sb.append(&quot;\nid: &quot;).append(id);</span>
+<span class="nc" id="L144">        sb.append(&quot;\nName: &quot;).append(name);</span>
+<span class="nc" id="L145">        sb.append(&quot;\nCapacidade: &quot;).append(capacidade);</span>
+<span class="nc" id="L146">        sb.append(&quot;\nStock: &quot;).append(stock);</span>
+<span class="nc" id="L147">        sb.append(&quot;\nMercados &quot;).append(mercadosToVisit);</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        while (mercados.hasNext()){</span>
+<span class="nc" id="L149">            sb.append(mercados.next());</span>
+        }
+<span class="nc" id="L151">        return sb.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

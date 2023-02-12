@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LinearNode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt.DataStructures.Queue</a> &gt; <span class="el_source">LinearNode.java</span></div><h1>LinearNode.java</h1><pre class="source lang-java linenums">package estg.ipp.pt.DataStructures.Queue;
+
+public class LinearNode&lt;T&gt; {
+<span class="nc" id="L4">    private LinearNode&lt;T&gt; next = null;</span>
+    private T element;
+
+<span class="nc" id="L7">    public LinearNode() {</span>
+<span class="nc" id="L8">        this.element = null;</span>
+<span class="nc" id="L9">    }</span>
+
+<span class="nc" id="L11">    public LinearNode(T elem) {</span>
+<span class="nc" id="L12">        this.element = elem;</span>
+<span class="nc" id="L13">    }</span>
+
+    public LinearNode&lt;T&gt; getNext() {
+<span class="nc" id="L16">        return this.next;</span>
+    }
+
+    public void setNext(LinearNode&lt;T&gt; node) {
+<span class="nc" id="L20">        this.next = node;</span>
+<span class="nc" id="L21">    }</span>
+
+    public T getElement() {
+<span class="nc" id="L24">        return this.element;</span>
+    }
+
+    public void setElement(T elem) {
+<span class="nc" id="L28">        this.element = elem;</span>
+<span class="nc" id="L29">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

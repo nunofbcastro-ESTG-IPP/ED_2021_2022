@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoubleLinkedList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt.DataStructures.DoubleLinkedList</a> &gt; <span class="el_source">DoubleLinkedList.java</span></div><h1>DoubleLinkedList.java</h1><pre class="source lang-java linenums">package estg.ipp.pt.DataStructures.DoubleLinkedList;
+
+import estg.ipp.pt.DataStructures.Exceptions.ElementNotFoundException;
+import estg.ipp.pt.DataStructures.Exceptions.EmptyCollectionException;
+import estg.ipp.pt.DataStructures.Interfaces.ListADT;
+import estg.ipp.pt.DataStructures.Nodes.DoubleNode;
+
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+<span class="fc" id="L12">public abstract class DoubleLinkedList&lt;T&gt; implements ListADT&lt;T&gt; {</span>
+
+<span class="nc" id="L14">    private class DoubleLinkedListInterator implements Iterator&lt;T&gt; {</span>
+
+        private final int expectedModCount;
+        private DoubleNode&lt;T&gt; current;
+
+        {
+<span class="nc" id="L20">            expectedModCount = modCount;</span>
+<span class="nc" id="L21">            current = head;</span>
+<span class="nc" id="L22">        }</span>
+
+        @Override
+        public boolean hasNext() {
+<span class="nc bnc" id="L26" title="All 2 branches missed.">            return current != null;</span>
+        }
+
+        @Override
+        public T next() {
+<span class="nc" id="L31">            checkForComodification();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (!hasNext()) {</span>
+<span class="nc" id="L33">                throw new NoSuchElementException();</span>
+            }
+<span class="nc" id="L35">            T tmp = current.getElement();</span>
+<span class="nc" id="L36">            current = current.getNext();</span>
+<span class="nc" id="L37">            return tmp;</span>
+        }
+
+        final void checkForComodification() {
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            if (expectedModCount != modCount) {</span>
+<span class="nc" id="L42">                throw new ConcurrentModificationException();</span>
+            }
+<span class="nc" id="L44">        }</span>
+
+    }
+
+    protected DoubleNode&lt;T&gt; head;
+    protected DoubleNode&lt;T&gt; tail;
+<span class="fc" id="L50">    protected int size = 0;</span>
+    protected int modCount;
+
+    {
+<span class="fc" id="L54">        this.head = null;</span>
+<span class="fc" id="L55">        this.tail = null;</span>
+<span class="fc" id="L56">        this.size = 0;</span>
+<span class="fc" id="L57">        this.modCount = 0;</span>
+<span class="fc" id="L58">    }</span>
+
+    @Override
+    public T removeFirst() throws EmptyCollectionException {
+
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L64">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+
+<span class="fc" id="L67">        T tmp = this.head.getElement();</span>
+
+<span class="fc" id="L69">        this.head = this.head.getNext();</span>
+
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (this.size() == 1) {</span>
+<span class="fc" id="L72">            this.tail = null;</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        } else if (this.head != null) {</span>
+<span class="nc" id="L74">            this.head.setPrevious(null);</span>
+        }
+
+<span class="fc" id="L77">        this.size--;</span>
+<span class="fc" id="L78">        this.modCount++;</span>
+
+<span class="fc" id="L80">        return tmp;</span>
+
+    }
+
+    @Override
+    public T removeLast() throws EmptyCollectionException {
+
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L88">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+
+<span class="nc" id="L91">        T tmp = this.tail.getElement();</span>
+
+<span class="nc" id="L93">        this.tail = this.tail.getPrevious();</span>
+
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (this.size() == 1) {</span>
+<span class="nc" id="L96">            this.head = null;</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        } else if (this.tail != null) {</span>
+<span class="nc" id="L98">            this.tail.setNext(null);</span>
+        }
+
+<span class="nc" id="L101">        this.size--;</span>
+<span class="nc" id="L102">        this.modCount++;</span>
+
+<span class="nc" id="L104">        return tmp;</span>
+
+    }
+
+    @Override
+    public T remove(T element) throws EmptyCollectionException, ElementNotFoundException {
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L111">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+
+<span class="fc" id="L114">        DoubleNode&lt;T&gt; node = search(element);</span>
+
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (node == null) {</span>
+<span class="nc" id="L117">            throw new ElementNotFoundException(&quot;Value doesn't exist in list.&quot;);</span>
+        }
+
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        if (node.equals(this.head)) {</span>
+<span class="fc" id="L121">            return this.removeFirst();</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        } else if (node.equals(this.tail)) {</span>
+<span class="nc" id="L123">            return this.removeLast();</span>
+        }
+
+<span class="nc" id="L126">        node.getPrevious().setNext(node.getNext());</span>
+<span class="nc" id="L127">        node.getNext().setPrevious(node.getPrevious());</span>
+
+<span class="nc" id="L129">        this.size--;</span>
+<span class="nc" id="L130">        this.modCount++;</span>
+
+<span class="nc" id="L132">        return element;</span>
+    }
+
+    @Override
+    public T first() throws EmptyCollectionException {
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L138">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+<span class="nc" id="L140">        return head.getElement();</span>
+    }
+
+    @Override
+    public T last() throws EmptyCollectionException {
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L146">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+<span class="nc" id="L148">        return tail.getElement();</span>
+    }
+
+    @Override
+    public boolean contains(T target) {
+<span class="fc bfc" id="L153" title="All 2 branches covered.">        return search(target) != null;</span>
+    }
+
+    @Override
+    public boolean isEmpty() {
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        return this.size() == 0;</span>
+    }
+
+    @Override
+    public int size() {
+<span class="fc" id="L163">        return this.size;</span>
+    }
+
+    @Override
+    public Iterator&lt;T&gt; iterator() {
+<span class="nc" id="L168">        return new DoubleLinkedListInterator();</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L173">        StringBuilder sb = new StringBuilder(&quot;\n&quot;);</span>
+<span class="nc" id="L174">        DoubleNode&lt;T&gt; node = this.head;</span>
+
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        while (node != null) {</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">            if (node.getElement() != null) {</span>
+<span class="nc" id="L178">                sb.append(node.getElement().toString()).append(&quot;\n&quot;);</span>
+<span class="nc" id="L179">                node = node.getNext();</span>
+            }
+        }
+
+<span class="nc" id="L183">        return sb.toString();</span>
+    }
+
+    protected DoubleNode&lt;T&gt; search(T element) {
+<span class="fc" id="L187">        DoubleNode&lt;T&gt; node = this.head;</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        while (node != null) {</span>
+<span class="pc bpc" id="L189" title="1 of 2 branches missed.">            if (node.getElement().equals(element)) {</span>
+<span class="fc" id="L190">                return node;</span>
+            }
+<span class="nc" id="L192">            node = node.getNext();</span>
+        }
+<span class="fc" id="L194">        return null;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

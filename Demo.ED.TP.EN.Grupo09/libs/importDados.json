@@ -1,0 +1,77 @@
+{
+"vendedores": [
+    {
+        "id": 1,
+        "nome": "Vendedor 1",
+        "capacidade": 250,
+        "mercados_a_visitar": [
+            "Mercado 1",
+            "Mercado 2"
+        ]
+    },
+    {
+        "id": 2,
+        "nome": "Vendedor 2",
+        "capacidade": 200,
+        "mercados_a_visitar": [
+            "..."
+        ]
+    }
+],
+"locais": [
+    {
+        "nome": "Empresa",
+        "tipo": "Sede"
+    },
+    {
+        "nome": "Mercado 1",
+        "tipo": "Mercado",
+        "clientes": [
+            10000,
+            50,
+            25,
+            20,
+            80
+        ]
+    },
+    {
+        "nome": "Mercado 2",
+        "tipo": "Mercado",
+        "clientes": [
+            100,
+            50,
+            25,
+            20,
+            80
+        ]
+    },
+    {
+        "nome": "Armazém 1",
+        "tipo": "Armazém",
+        "capacidade": 500,
+        "stock": 420
+    }
+],
+"caminhos": [
+    {
+        "de": "Empresa",
+        "para": "Mercado 1",
+        "distancia": 30
+    },
+    {
+        "de": "Mercado 1",
+        "para": "Mercado 2",
+        "distancia": 30
+    },
+    {
+        "de": "Empresa",
+        "para": "Armazém 1",
+        "distancia": 30
+    },
+    {
+        "de": "Mercado 1",
+        "para": "Armazém 1",
+        "distancia": 30
+    }
+]
+}

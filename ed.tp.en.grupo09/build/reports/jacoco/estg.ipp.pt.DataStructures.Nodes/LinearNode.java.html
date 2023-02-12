@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LinearNode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt.DataStructures.Nodes</a> &gt; <span class="el_source">LinearNode.java</span></div><h1>LinearNode.java</h1><pre class="source lang-java linenums">package estg.ipp.pt.DataStructures.Nodes;
+
+public class LinearNode&lt;T&gt; {
+
+    /**
+     * reference to next node in list
+     */
+    private LinearNode&lt;T&gt; next;
+    /**
+     * element stored at this node
+     */
+    private T element;
+
+    /**
+     * Creates an empty node.
+     */
+<span class="nc" id="L17">    public LinearNode() {</span>
+<span class="nc" id="L18">        next = null;</span>
+<span class="nc" id="L19">        element = null;</span>
+<span class="nc" id="L20">    }</span>
+
+    /**
+     * Creates a node storing the specified element.
+     *
+     * @param elem element to be stored
+     */
+<span class="nc" id="L27">    public LinearNode(T elem) {</span>
+<span class="nc" id="L28">        next = null;</span>
+<span class="nc" id="L29">        element = elem;</span>
+<span class="nc" id="L30">    }</span>
+
+    /**
+     * Returns the node that follows this one.
+     *
+     * @return LinearNode reference to next node
+     */
+    public LinearNode&lt;T&gt; getNext() {
+<span class="nc" id="L38">        return next;</span>
+    }
+
+    /**
+     * Sets the node that follows this one.
+     *
+     * @param node node to follow this one
+     */
+    public void setNext(LinearNode&lt;T&gt; node) {
+<span class="nc" id="L47">        next = node;</span>
+<span class="nc" id="L48">    }</span>
+
+    /**
+     * Returns the element stored in this node.
+     *
+     * @return T element stored at this node
+     */
+    public T getElement() {
+<span class="nc" id="L56">        return element;</span>
+    }
+
+    /**
+     * Sets the element stored in this node.
+     *
+     * @param elem element to be stored at this node
+     */
+    public void setElement(T elem) {
+<span class="nc" id="L65">        element = elem;</span>
+<span class="nc" id="L66">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

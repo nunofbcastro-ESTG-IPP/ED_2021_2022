@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Network.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt.DataStructures.Graphs</a> &gt; <span class="el_source">Network.java</span></div><h1>Network.java</h1><pre class="source lang-java linenums">package estg.ipp.pt.DataStructures.Graphs;
+
+import estg.ipp.pt.DataStructures.ArrayList.ArrayUnorderedList;
+import estg.ipp.pt.DataStructures.Interfaces.NetworkADT;
+import estg.ipp.pt.DataStructures.Exceptions.EmptyCollectionException;
+import estg.ipp.pt.DataStructures.Interfaces.HeapADT;
+import estg.ipp.pt.DataStructures.Queue.LinkedQueue;
+import estg.ipp.pt.DataStructures.Stack.LinkedStack;
+import estg.ipp.pt.DataStructures.Tree.LinkedHeap;
+import estg.ipp.pt.Exceptions.IllegalArgumentException;
+
+import java.util.Iterator;
+
+public class Network&lt;T&gt; extends Graph&lt;T&gt; implements NetworkADT&lt;T&gt; {
+    protected double[][] adjMatrix;    // adjacency matrix
+
+<span class="fc" id="L17">    public Network() {</span>
+<span class="fc" id="L18">        numVertices = 0;</span>
+<span class="fc" id="L19">        this.adjMatrix = new double[DEFAULT_CAPACITY][DEFAULT_CAPACITY];</span>
+<span class="fc" id="L20">        this.vertices = (T[]) (new Object[DEFAULT_CAPACITY]);</span>
+<span class="fc" id="L21">    }</span>
+
+    protected void expandCapacity() {
+<span class="nc" id="L24">        T[] largerVertices = (T[]) (new Object[vertices.length * 2]);</span>
+<span class="nc" id="L25">        double[][] largerAdjMatrix</span>
+                = new double[vertices.length * 2][vertices.length * 2];
+
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        for (int i = 0; i &lt; numVertices; i++) {</span>
+<span class="nc" id="L29">            System.arraycopy(adjMatrix[i], 0, largerAdjMatrix[i], 0, numVertices);</span>
+<span class="nc" id="L30">            largerVertices[i] = vertices[i];</span>
+        }
+
+<span class="nc" id="L33">        vertices = largerVertices;</span>
+<span class="nc" id="L34">        adjMatrix = largerAdjMatrix;</span>
+<span class="nc" id="L35">    }</span>
+
+    /**
+     * Inserts an edge between two vertices of the graph.
+     *
+     * @param vertex1 the first vertex
+     * @param vertex2 the second vertex
+     * @param weight  the weight
+     */
+    public void addEdge(T vertex1, T vertex2, double weight) {
+<span class="nc" id="L45">        this.addEdge(super.getIndex(vertex1), super.getIndex(vertex2), weight);</span>
+<span class="nc" id="L46">    }</span>
+
+    /**
+     * Inserts an edge between two vertices of the graph.
+     *
+     * @param index1 the first index
+     * @param index2 the second index
+     * @param weight the weight
+     */
+    private void addEdge(int index1, int index2, double weight) {
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        if (super.indexIsValid(index1) &amp;&amp; super.indexIsValid(index2)) {</span>
+<span class="nc" id="L57">            this.adjMatrix[index1][index2] = weight;</span>
+<span class="nc" id="L58">            this.adjMatrix[index2][index1] = weight;</span>
+        }
+<span class="nc" id="L60">    }</span>
+
+    /**
+     * Inserts an edge between two vertices of the graph. Assumes a weight of 0.
+     *
+     * @param vertex1 the first vertex
+     * @param vertex2 the second vertex
+     */
+    @Override
+    public void addEdge(T vertex1, T vertex2) {
+<span class="nc" id="L70">        this.addEdge(super.getIndex(vertex1), super.getIndex(vertex2), 0);</span>
+<span class="nc" id="L71">    }</span>
+
+    /**
+     * Adds a vertex to the graph, expanding the capacity of the graph if
+     * necessary. It also associates an object with the vertex.
+     *
+     * @param vertex the vertex to add to the graph
+     */
+    public void addVertex(T vertex) throws IllegalArgumentException {
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (super.size() == super.vertices.length) {</span>
+<span class="nc" id="L81">            this.expandCapacity();</span>
+        }
+
+<span class="nc" id="L84">        super.vertices[super.size()] = vertex;</span>
+
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        for (int i = 0; i &lt;= this.size(); i++) {</span>
+<span class="nc" id="L87">            this.adjMatrix[numVertices][i] = Double.POSITIVE_INFINITY;</span>
+<span class="nc" id="L88">            this.adjMatrix[i][numVertices] = Double.POSITIVE_INFINITY;</span>
+        }
+<span class="nc" id="L90">        super.numVertices++;</span>
+<span class="nc" id="L91">    }</span>
+
+    /**
+     * Removes an edge between two vertices of this graph.
+     *
+     * @param vertex1 the first vertex
+     * @param vertex2 the second vertex
+     */
+    public void removeEdge(T vertex1, T vertex2) {
+<span class="nc" id="L100">        this.removeEdge(super.getIndex(vertex1), super.getIndex(vertex2));</span>
+<span class="nc" id="L101">    }</span>
+
+    /**
+     * Removes an edge between two vertices of this graph.
+     *
+     * @param index1 the first index
+     * @param index2 the second index
+     */
+    public void removeEdge(int index1, int index2) {
+<span class="nc bnc" id="L110" title="All 4 branches missed.">        if (super.indexIsValid(index1) &amp;&amp; super.indexIsValid(index2)) {</span>
+<span class="nc" id="L111">            this.adjMatrix[index1][index2] = Double.POSITIVE_INFINITY;</span>
+<span class="nc" id="L112">            this.adjMatrix[index2][index1] = Double.POSITIVE_INFINITY;</span>
+        }
+<span class="nc" id="L114">    }</span>
+
+    /**
+     * Removes a single vertex with the given value from this graph.
+     *
+     * @param vertex the vertex to be removed from this graph
+     */
+    @Override
+    public void removeVertex(T vertex) {
+<span class="nc" id="L123">        this.removeVertex(super.getIndex(vertex));</span>
+<span class="nc" id="L124">    }</span>
+
+    /**
+     * Removes a single vertex with the given value from this graph.
+     *
+     * @param index the index
+     */
+    private void removeVertex(int index) {
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if (this.indexIsValid(index)) {</span>
+<span class="nc" id="L133">            this.numVertices--;</span>
+
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            for (int i = index; i &lt; super.size(); i++){</span>
+<span class="nc" id="L136">                this.vertices[i] = this.vertices[i+1];</span>
+            }
+
+<span class="nc bnc" id="L139" title="All 2 branches missed.">            for (int i = index; i &lt; super.size(); i++){</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">                for (int j = 0; j &lt;= super.size(); j++){</span>
+<span class="nc" id="L141">                    this.adjMatrix[i][j] = this.adjMatrix[i+1][j];</span>
+                }
+            }
+
+<span class="nc bnc" id="L145" title="All 2 branches missed.">            for (int i = index; i &lt; super.size(); i++){</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">                for (int j = 0; j &lt; super.size(); j++){</span>
+<span class="nc" id="L147">                    this.adjMatrix[j][i] = this.adjMatrix[j][i+1];</span>
+                }
+            }
+        }
+<span class="nc" id="L151">    }</span>
+
+    /**
+     * Returns a breadth first iterator starting with the given vertex.
+     *
+     * @param startVertex the starting vertex
+     * @return a breadth first iterator beginning at the given vertex
+     */
+    public Iterator&lt;T&gt; iteratorBFS(T startVertex) {
+<span class="nc" id="L160">        return this.iteratorBFS(super.getIndex(startVertex));</span>
+    }
+
+    /**
+     * Returns an iterator that performs a breadth first search traversal
+     * starting at the given index.
+     *
+     * @param startIndex the index to begin the search from
+     * @return an iterator that performs a breadth first traversal
+     */
+    public Iterator&lt;T&gt; iteratorBFS(int startIndex) {
+        Integer x;
+<span class="nc" id="L172">        LinkedQueue&lt;Integer&gt; traversalQueue = new LinkedQueue&lt;&gt;();</span>
+<span class="nc" id="L173">        ArrayUnorderedList&lt;T&gt; resultList = new ArrayUnorderedList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (!super.indexIsValid(startIndex))</span>
+<span class="nc" id="L176">            return resultList.iterator();</span>
+
+<span class="nc" id="L178">        boolean[] visited = new boolean[super.size()];</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        for (int i = 0; i &lt; super.size(); i++) {</span>
+<span class="nc" id="L180">            visited[i] = false;</span>
+        }
+
+
+<span class="nc" id="L184">        traversalQueue.enqueue(startIndex);</span>
+<span class="nc" id="L185">        visited[startIndex] = true;</span>
+
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        while (!traversalQueue.isEmpty()) {</span>
+            try {
+<span class="nc" id="L189">                x = traversalQueue.dequeue();</span>
+<span class="nc" id="L190">                resultList.addToRear(super.vertices[x]);</span>
+                /**
+                 * Find all vertices adjacent to x that have not been visited
+                 * and queue them up
+                 */
+<span class="nc bnc" id="L195" title="All 2 branches missed.">                for (int i = 0; i &lt; super.size(); i++) {</span>
+<span class="nc bnc" id="L196" title="All 4 branches missed.">                    if ((this.adjMatrix[x][i] &lt; Double.POSITIVE_INFINITY) &amp;&amp; !visited[i]) {</span>
+<span class="nc" id="L197">                        traversalQueue.enqueue(i);</span>
+<span class="nc" id="L198">                        visited[i] = true;</span>
+                    }
+                }
+<span class="nc" id="L201">            } catch (EmptyCollectionException ignored) {</span>
+<span class="nc" id="L202">            }</span>
+        }
+<span class="nc" id="L204">        return resultList.iterator();</span>
+    }
+
+    /**
+     * Returns a depth first iterator starting with the given vertex.
+     *
+     * @param startVertex the starting vertex
+     * @return a depth first iterator starting at the given vertex
+     */
+    public Iterator&lt;T&gt; iteratorDFS(T startVertex) {
+<span class="nc" id="L214">        return this.iteratorDFS(super.getIndex(startVertex));</span>
+    }
+
+    /**
+     * Returns an iterator that performs a depth first search traversal starting
+     * at the given index.
+     *
+     * @param startIndex the index to begin the search traversal from
+     * @return an iterator that performs a depth first traversal
+     */
+    public Iterator&lt;T&gt; iteratorDFS(int startIndex) {
+        Integer x;
+        boolean found;
+<span class="nc" id="L227">        LinkedStack&lt;Integer&gt; traversalStack = new LinkedStack&lt;&gt;();</span>
+<span class="nc" id="L228">        ArrayUnorderedList&lt;T&gt; resultList = new ArrayUnorderedList&lt;&gt;();</span>
+<span class="nc" id="L229">        boolean[] visited = new boolean[super.size()];</span>
+
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        if (!super.indexIsValid(startIndex)) {</span>
+<span class="nc" id="L232">            return resultList.iterator();</span>
+        }
+
+<span class="nc bnc" id="L235" title="All 2 branches missed.">        for (int i = 0; i &lt; super.size(); i++) {</span>
+<span class="nc" id="L236">            visited[i] = false;</span>
+        }
+
+<span class="nc" id="L239">        traversalStack.push(startIndex);</span>
+<span class="nc" id="L240">        resultList.addToRear(super.vertices[startIndex]);</span>
+<span class="nc" id="L241">        visited[startIndex] = true;</span>
+
+<span class="nc bnc" id="L243" title="All 2 branches missed.">        while (!traversalStack.isEmpty()) {</span>
+            try {
+<span class="nc" id="L245">                x = traversalStack.peek();</span>
+<span class="nc" id="L246">                found = false;</span>
+                /**
+                 * Find a vertex adjacent to x that has not been visited and
+                 * push it on the stack
+                 */
+<span class="nc bnc" id="L251" title="All 4 branches missed.">                for (int i = 0; (i &lt; super.size()) &amp;&amp; !found; i++) {</span>
+<span class="nc bnc" id="L252" title="All 4 branches missed.">                    if ((this.adjMatrix[x][i] &lt; Double.POSITIVE_INFINITY) &amp;&amp; !visited[i]) {</span>
+<span class="nc" id="L253">                        traversalStack.push(i);</span>
+<span class="nc" id="L254">                        resultList.addToRear(super.vertices[i]);</span>
+<span class="nc" id="L255">                        visited[i] = true;</span>
+<span class="nc" id="L256">                        found = true;</span>
+                    }
+                }
+<span class="nc bnc" id="L259" title="All 4 branches missed.">                if (!found &amp;&amp; !traversalStack.isEmpty())</span>
+<span class="nc" id="L260">                    traversalStack.pop();</span>
+<span class="nc" id="L261">            } catch (EmptyCollectionException ignored) {</span>
+<span class="nc" id="L262">            }</span>
+        }
+<span class="nc" id="L264">        return resultList.iterator();</span>
+    }
+
+    /**
+     * Returns an iterator that contains the shortest path between the two
+     * vertices.
+     *
+     * @param startVertex  the starting vertex
+     * @param targetVertex the ending vertex
+     * @return an iterator that contains the shortest path between the two
+     * vertices
+     */
+    public Iterator&lt;T&gt; iteratorShortestPath(T startVertex, T targetVertex) {
+<span class="nc" id="L277">        return iteratorShortestPath(getIndex(startVertex),</span>
+<span class="nc" id="L278">                getIndex(targetVertex));</span>
+    }
+
+    public Iterator&lt;T&gt; iteratorShortestPath(int startIndex, int targetIndex) {
+<span class="nc" id="L282">        ArrayUnorderedList&lt;T&gt; templist = new ArrayUnorderedList&lt;&gt;();</span>
+<span class="nc bnc" id="L283" title="All 4 branches missed.">        if (!indexIsValid(startIndex) || !indexIsValid(targetIndex))</span>
+<span class="nc" id="L284">            return templist.iterator();</span>
+
+<span class="nc" id="L286">        Iterator&lt;Integer&gt; it = iteratorShortestPathIndices(startIndex,</span>
+                targetIndex);
+<span class="nc bnc" id="L288" title="All 2 branches missed.">        while (it.hasNext())</span>
+<span class="nc" id="L289">            templist.addToRear(vertices[(it.next()).intValue()]);</span>
+<span class="nc" id="L290">        return templist.iterator();</span>
+    }
+
+    protected Iterator&lt;Integer&gt; iteratorShortestPathIndices(int startIndex, int targetIndex) {
+        int index;
+        double weight;
+<span class="nc" id="L296">        int[] predecessor = new int[numVertices];</span>
+<span class="nc" id="L297">        HeapADT&lt;Double&gt; traversalMinHeap = new LinkedHeap&lt;&gt;();</span>
+<span class="nc" id="L298">        ArrayUnorderedList&lt;Integer&gt; resultList =</span>
+                new ArrayUnorderedList&lt;&gt;();
+<span class="nc" id="L300">        LinkedStack&lt;Integer&gt; stack = new LinkedStack&lt;&gt;();</span>
+
+<span class="nc" id="L302">        int[] pathIndex = new int[numVertices];</span>
+<span class="nc" id="L303">        double[] pathWeight = new double[numVertices];</span>
+<span class="nc bnc" id="L304" title="All 2 branches missed.">        for (int i = 0; i &lt; numVertices; i++)</span>
+<span class="nc" id="L305">            pathWeight[i] = Double.POSITIVE_INFINITY;</span>
+
+<span class="nc" id="L307">        boolean[] visited = new boolean[numVertices];</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">        for (int i = 0; i &lt; numVertices; i++)</span>
+<span class="nc" id="L309">            visited[i] = false;</span>
+
+<span class="nc bnc" id="L311" title="All 6 branches missed.">        if (!indexIsValid(startIndex) || !indexIsValid(targetIndex) ||</span>
+<span class="nc bnc" id="L312" title="All 2 branches missed.">                (startIndex == targetIndex) || isEmpty())</span>
+<span class="nc" id="L313">            return resultList.iterator();</span>
+
+<span class="nc" id="L315">        pathWeight[startIndex] = 0;</span>
+<span class="nc" id="L316">        predecessor[startIndex] = -1;</span>
+<span class="nc" id="L317">        visited[startIndex] = true;</span>
+<span class="nc" id="L318">        weight = 0;</span>
+
+        /** Update the pathWeight for each vertex except the
+         startVertex. Notice that all vertices not adjacent
+         to the startVertex  will have a pathWeight of
+         infinity for now. */
+<span class="nc bnc" id="L324" title="All 2 branches missed.">        for (int i = 0; i &lt; numVertices; i++) {</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">            if (!visited[i]) {</span>
+<span class="nc" id="L326">                pathWeight[i] = pathWeight[startIndex] +</span>
+                        adjMatrix[startIndex][i];
+<span class="nc" id="L328">                predecessor[i] = startIndex;</span>
+<span class="nc" id="L329">                traversalMinHeap.addElement(pathWeight[i]);</span>
+            }
+        }
+
+        do {
+            try {
+<span class="nc" id="L335">                weight = traversalMinHeap.removeMin();</span>
+<span class="nc" id="L336">                traversalMinHeap = new LinkedHeap&lt;&gt;();</span>
+<span class="nc bnc" id="L337" title="All 2 branches missed.">                if (weight == Double.POSITIVE_INFINITY)  // no possible path</span>
+<span class="nc" id="L338">                    return resultList.iterator();</span>
+                else {
+<span class="nc" id="L340">                    index = getIndexOfAdjVertexWithWeightOf(visited, pathWeight, weight);</span>
+<span class="nc" id="L341">                    visited[index] = true;</span>
+                }
+
+                /** Update the pathWeight for each vertex that has has not been
+                 visited and is adjacent to the last vertex that was visited.
+                 Also, add each unvisited vertex to the heap. */
+<span class="nc bnc" id="L347" title="All 2 branches missed.">                for (int i = 0; i &lt; numVertices; i++) {</span>
+<span class="nc bnc" id="L348" title="All 2 branches missed.">                    if (!visited[i]) {</span>
+<span class="nc bnc" id="L349" title="All 4 branches missed.">                        if ((adjMatrix[index][i] &lt; Double.POSITIVE_INFINITY) &amp;&amp; (pathWeight[index] + adjMatrix[index][i]) &lt; pathWeight[i]) {</span>
+<span class="nc" id="L350">                            pathWeight[i] = pathWeight[index] + adjMatrix[index][i];</span>
+<span class="nc" id="L351">                            predecessor[i] = index;</span>
+                        }
+<span class="nc" id="L353">                        traversalMinHeap.addElement(pathWeight[i]);</span>
+                    }
+                }
+<span class="nc" id="L356">            } catch (EmptyCollectionException ignored) {</span>
+<span class="nc" id="L357">            }</span>
+<span class="nc bnc" id="L358" title="All 4 branches missed.">        } while (!traversalMinHeap.isEmpty() &amp;&amp; !visited[targetIndex]);</span>
+
+<span class="nc" id="L360">        index = targetIndex;</span>
+<span class="nc" id="L361">        stack.push(index);</span>
+        do {
+<span class="nc" id="L363">            index = predecessor[index];</span>
+<span class="nc" id="L364">            stack.push(index);</span>
+<span class="nc bnc" id="L365" title="All 2 branches missed.">        } while (index != startIndex);</span>
+
+<span class="nc bnc" id="L367" title="All 2 branches missed.">        while (!stack.isEmpty()) {</span>
+            try {
+<span class="nc" id="L369">                resultList.addToRear((stack.pop()));</span>
+<span class="nc" id="L370">            } catch (EmptyCollectionException ignored) {</span>
+<span class="nc" id="L371">            }</span>
+        }
+
+
+<span class="nc" id="L375">        return resultList.iterator();</span>
+    }
+
+    protected int getIndexOfAdjVertexWithWeightOf(boolean[] visited, double[] pathWeight, double weight) {
+<span class="nc bnc" id="L379" title="All 2 branches missed.">        for (int i = 0; i &lt; numVertices; i++)</span>
+<span class="nc bnc" id="L380" title="All 4 branches missed.">            if ((pathWeight[i] == weight) &amp;&amp; !visited[i])</span>
+<span class="nc bnc" id="L381" title="All 2 branches missed.">                for (int j = 0; j &lt; numVertices; j++)</span>
+<span class="nc bnc" id="L382" title="All 4 branches missed.">                    if ((adjMatrix[i][j] &lt; Double.POSITIVE_INFINITY) &amp;&amp;</span>
+                            visited[j])
+<span class="nc" id="L384">                        return i;</span>
+
+<span class="nc" id="L386">        return -1;  // should never get to here</span>
+    }
+
+    public double shortestPathWeight(int startIndex, int targetIndex) {
+<span class="nc" id="L390">        double result = 0;</span>
+<span class="nc bnc" id="L391" title="All 4 branches missed.">        if (!indexIsValid(startIndex) || !indexIsValid(targetIndex))</span>
+<span class="nc" id="L392">            return Double.POSITIVE_INFINITY;</span>
+
+        int index1, index2;
+<span class="nc" id="L395">        Iterator&lt;Integer&gt; it = iteratorShortestPathIndices(startIndex,</span>
+                targetIndex);
+
+<span class="nc bnc" id="L398" title="All 2 branches missed.">        if (it.hasNext())</span>
+<span class="nc" id="L399">            index1 = ((Integer) it.next()).intValue();</span>
+        else
+<span class="nc" id="L401">            return Double.POSITIVE_INFINITY;</span>
+
+<span class="nc bnc" id="L403" title="All 2 branches missed.">        while (it.hasNext()) {</span>
+<span class="nc" id="L404">            index2 = (it.next()).intValue();</span>
+<span class="nc" id="L405">            result += adjMatrix[index1][index2];</span>
+<span class="nc" id="L406">            index1 = index2;</span>
+        }
+
+<span class="nc" id="L409">        return result;</span>
+    }
+
+    /**
+     * Returns the weight of the shortest path in this network.
+     *
+     * @param vertex1 the first vertex
+     * @param vertex2 the second vertex
+     * @return the weight of the shortest path in this network
+     */
+    public double shortestPathWeight(T vertex1, T vertex2) {
+<span class="nc" id="L420">        return shortestPathWeight(super.getIndex(vertex1), super.getIndex(vertex2));</span>
+    }
+
+    /**
+     * Returns a minimum spanning tree of the network.
+     *
+     * @return a minimum spanning tree of the network
+     */
+    public Network mstNetwork() {
+        int x, y;
+        int index;
+        double weight;
+<span class="nc" id="L432">        int[] edge = new int[2];</span>
+<span class="nc" id="L433">        HeapADT&lt;Double&gt; minHeap = new LinkedHeap&lt;&gt;();</span>
+<span class="nc" id="L434">        Network&lt;T&gt; resultGraph = new Network&lt;&gt;();</span>
+<span class="nc bnc" id="L435" title="All 4 branches missed.">        if (super.isEmpty() || !super.isConnected()) {</span>
+<span class="nc" id="L436">            return resultGraph;</span>
+        }
+<span class="nc" id="L438">        resultGraph.adjMatrix = new double[super.numVertices][super.numVertices];</span>
+<span class="nc bnc" id="L439" title="All 2 branches missed.">        for (int i = 0; i &lt; super.numVertices; i++) {</span>
+<span class="nc bnc" id="L440" title="All 2 branches missed.">            for (int j = 0; j &lt; super.numVertices; j++) {</span>
+<span class="nc" id="L441">                resultGraph.adjMatrix[i][j] = Double.POSITIVE_INFINITY;</span>
+            }
+        }
+<span class="nc" id="L444">        resultGraph.vertices = (T[]) (new Object[super.numVertices]);</span>
+<span class="nc" id="L445">        boolean[] visited = new boolean[numVertices];</span>
+<span class="nc bnc" id="L446" title="All 2 branches missed.">        for (int i = 0; i &lt; numVertices; i++) {</span>
+<span class="nc" id="L447">            visited[i] = false;</span>
+        }
+
+<span class="nc" id="L450">        edge[0] = 0;</span>
+<span class="nc" id="L451">        resultGraph.vertices[0] = this.vertices[0];</span>
+<span class="nc" id="L452">        resultGraph.numVertices++;</span>
+<span class="nc" id="L453">        visited[0] = true;</span>
+        /**
+         * Add all edges, which are adjacent to the starting vertex, to the heap
+         */
+<span class="nc bnc" id="L457" title="All 2 branches missed.">        for (int i = 0; i &lt; super.numVertices; i++) {</span>
+<span class="nc" id="L458">            minHeap.addElement(this.adjMatrix[0][i]);</span>
+        }
+<span class="nc bnc" id="L460" title="All 4 branches missed.">        while ((resultGraph.size() &lt; this.size()) &amp;&amp; !minHeap.isEmpty()) {</span>
+            /**
+             * Get the edge with the smallest weight that has exactly one vertex
+             * already in the resultGraph
+             */
+            do {
+                try {
+<span class="nc" id="L467">                    weight = (minHeap.removeMin());</span>
+<span class="nc" id="L468">                    edge = getEdgeWithWeightOf(weight, visited);</span>
+<span class="nc" id="L469">                } catch (EmptyCollectionException ignored) {</span>
+<span class="nc" id="L470">                }</span>
+<span class="nc bnc" id="L471" title="All 4 branches missed.">            } while (!super.indexIsValid(edge[0]) || !super.indexIsValid(edge[1]));</span>
+<span class="nc" id="L472">            x = edge[0];</span>
+<span class="nc" id="L473">            y = edge[1];</span>
+<span class="nc bnc" id="L474" title="All 2 branches missed.">            if (!visited[x]) {</span>
+<span class="nc" id="L475">                index = x;</span>
+            } else {
+<span class="nc" id="L477">                index = y;</span>
+            }
+            /**
+             * Add the new edge and vertex to the resultGraph
+             */
+<span class="nc" id="L482">            resultGraph.vertices[index] = this.vertices[index];</span>
+<span class="nc" id="L483">            visited[index] = true;</span>
+<span class="nc" id="L484">            resultGraph.numVertices++;</span>
+<span class="nc" id="L485">            resultGraph.adjMatrix[x][y] = this.adjMatrix[x][y];</span>
+<span class="nc" id="L486">            resultGraph.adjMatrix[y][x] = this.adjMatrix[y][x];</span>
+            /**
+             * Add all edges, that are adjacent to the newly added vertex, to
+             * the heap
+             */
+<span class="nc bnc" id="L491" title="All 2 branches missed.">            for (int i = 0; i &lt; super.numVertices; i++) {</span>
+<span class="nc bnc" id="L492" title="All 4 branches missed.">                if (!visited[i] &amp;&amp; (this.adjMatrix[i][index] &lt; Double.POSITIVE_INFINITY)) {</span>
+<span class="nc" id="L493">                    edge[0] = index;</span>
+<span class="nc" id="L494">                    edge[1] = i;</span>
+<span class="nc" id="L495">                    minHeap.addElement(this.adjMatrix[index][i]);</span>
+                }
+            }
+        }
+<span class="nc" id="L499">        return resultGraph;</span>
+    }
+
+    protected int[] getEdgeWithWeightOf(double weight, boolean[] visited) {
+<span class="nc" id="L503">        int[] edge = new int[2];</span>
+<span class="nc bnc" id="L504" title="All 2 branches missed.">        for (int i = 0; i &lt; numVertices; i++) {</span>
+<span class="nc bnc" id="L505" title="All 2 branches missed.">            for (int j = 0; j &lt; numVertices; j++) {</span>
+<span class="nc bnc" id="L506" title="All 4 branches missed.">                if ((adjMatrix[i][j] == weight) &amp;&amp; (visited[i] ^ visited[j])) {</span>
+<span class="nc" id="L507">                    edge[0] = i;</span>
+<span class="nc" id="L508">                    edge[1] = j;</span>
+<span class="nc" id="L509">                    return edge;</span>
+                }
+            }
+        }
+
+        /**
+         * Will only get to here if a valid edge is not found
+         */
+<span class="nc" id="L517">        edge[0] = -1;</span>
+<span class="nc" id="L518">        edge[1] = -1;</span>
+<span class="nc" id="L519">        return edge;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Armazem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt</a> &gt; <span class="el_source">Armazem.java</span></div><h1>Armazem.java</h1><pre class="source lang-java linenums">package estg.ipp.pt;
+
+import estg.ipp.pt.Enums.TipoLocal;
+import estg.ipp.pt.Interfaces.IArmazem;
+
+public class Armazem extends Local implements IArmazem {
+    private int capacidade;
+    private int stock;
+
+    public Armazem(String nome, int capacidade, int stock) {
+<span class="fc" id="L11">        super(nome, TipoLocal.ARMAZEM);</span>
+<span class="fc" id="L12">        this.capacidade = capacidade;</span>
+<span class="fc" id="L13">        this.stock = stock;</span>
+<span class="fc" id="L14">    }</span>
+
+    @Override
+    public int getCapacidade() {
+<span class="nc" id="L18">        return capacidade;</span>
+    }
+
+    @Override
+    public void setCapacidade(int capacidade) {
+<span class="nc" id="L23">        this.capacidade = capacidade;</span>
+<span class="nc" id="L24">    }</span>
+
+    @Override
+    public int getStock() {
+<span class="nc" id="L28">        return stock;</span>
+    }
+
+    @Override
+    public void setStock(int stock) {
+<span class="nc bnc" id="L33" title="All 4 branches missed.">        if(stock &gt; 0 &amp;&amp; (this.stock + stock &lt;= this.capacidade)){</span>
+<span class="nc" id="L34">            this.stock += stock;</span>
+        }
+<span class="nc" id="L36">    }</span>
+
+    public void decremetStock(int stock){
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        if(stock &gt; 0 &amp;&amp; (this.stock - stock &gt; 0))</span>
+<span class="nc" id="L40">        this.stock -= stock;</span>
+<span class="nc" id="L41">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

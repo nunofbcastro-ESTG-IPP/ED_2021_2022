@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.31.0" timestamp="2022-02-03T14:21:46.643">
+<file name="C:\Users\Bruno\Desktop\ED.TP.EN.Grupo09\ed.tp.en.grupo09\ED.TP.EN.Grupo09\src\test\java\estg\ipp\pt\GestaoEmpresaTest.java">
+<violation beginline="11" endline="85" begincolumn="1" endcolumn="1" rule="AtLeastOneConstructor" ruleset="Code Style" package="estg.ipp.pt" class="GestaoEmpresaTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#atleastoneconstructor" priority="3">
+Each class should declare at least one constructor
+</violation>
+<violation beginline="12" endline="12" begincolumn="15" endcolumn="23" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="vendedor1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="12" endline="12" begincolumn="15" endcolumn="23" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="vendedor1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="12" endline="12" begincolumn="5" endcolumn="35" rule="DefaultPackage" ruleset="Code Style" package="estg.ipp.pt" class="GestaoEmpresaTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#defaultpackage" priority="3">
+Use explicit scoping instead of the default package private level
+</violation>
+<violation beginline="12" endline="12" begincolumn="5" endcolumn="35" rule="OneDeclarationPerLine" ruleset="Best Practices" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="VariableDeclaratorId, VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#onedeclarationperline" priority="4">
+Use one line for each declaration, it enhances code readability.
+</violation>
+<violation beginline="13" endline="13" begincolumn="21" endcolumn="41" rule="RedundantFieldInitializer" ruleset="Performance" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="gestaoEmpresas" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_performance.html#redundantfieldinitializer" priority="3">
+Avoid using redundant field initializer for 'gestaoEmpresas'
+</violation>
+<violation beginline="13" endline="13" begincolumn="21" endcolumn="34" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="gestaoEmpresas" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="13" endline="13" begincolumn="21" endcolumn="34" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="gestaoEmpresas" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="13" endline="13" begincolumn="5" endcolumn="42" rule="DefaultPackage" ruleset="Code Style" package="estg.ipp.pt" class="GestaoEmpresaTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#defaultpackage" priority="3">
+Use explicit scoping instead of the default package private level
+</violation>
+<violation beginline="14" endline="14" begincolumn="14" endcolumn="20" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="empresa" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="14" endline="14" begincolumn="14" endcolumn="20" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="empresa" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="14" endline="14" begincolumn="5" endcolumn="21" rule="DefaultPackage" ruleset="Code Style" package="estg.ipp.pt" class="GestaoEmpresaTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#defaultpackage" priority="3">
+Use explicit scoping instead of the default package private level
+</violation>
+<violation beginline="15" endline="15" begincolumn="12" endcolumn="19" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="mercado1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="15" endline="15" begincolumn="12" endcolumn="19" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="mercado1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="15" endline="15" begincolumn="22" endcolumn="29" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="mercado2" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="15" endline="15" begincolumn="22" endcolumn="29" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="mercado2" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="15" endline="15" begincolumn="32" endcolumn="39" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="armazem1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="15" endline="15" begincolumn="32" endcolumn="39" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="armazem1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="15" endline="15" begincolumn="5" endcolumn="40" rule="DefaultPackage" ruleset="Code Style" package="estg.ipp.pt" class="GestaoEmpresaTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#defaultpackage" priority="3">
+Use explicit scoping instead of the default package private level
+</violation>
+<violation beginline="15" endline="15" begincolumn="5" endcolumn="40" rule="OneDeclarationPerLine" ruleset="Best Practices" package="estg.ipp.pt" class="GestaoEmpresaTest" variable="VariableDeclaratorId, VariableDeclaratorId, VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#onedeclarationperline" priority="4">
+Use one line for each declaration, it enhances code readability.
+</violation>
+<violation beginline="27" endline="27" begincolumn="13" endcolumn="31" rule="AvoidPrintStackTrace" ruleset="Best Practices" package="estg.ipp.pt" class="GestaoEmpresaTest" method="setUp" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#avoidprintstacktrace" priority="3">
+Avoid printStackTrace(); use a logger call instead.
+</violation>
+<violation beginline="32" endline="52" begincolumn="5" endcolumn="5" rule="JUnitTestContainsTooManyAsserts" ruleset="Best Practices" package="estg.ipp.pt" class="GestaoEmpresaTest" method="addVendedor" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#junittestcontainstoomanyasserts" priority="3">
+Unit tests should not contain more than 1 assert(s).
+</violation>
+<violation beginline="33" endline="33" begincolumn="9" endcolumn="44" rule="OneDeclarationPerLine" ruleset="Best Practices" package="estg.ipp.pt" class="GestaoEmpresaTest" method="addVendedor" variable="VariableDeclaratorId, VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#onedeclarationperline" priority="4">
+Use one line for each declaration, it enhances code readability.
+</violation>
+<violation beginline="36" endline="36" begincolumn="62" endcolumn="62" rule="EmptyStatementNotInLoop" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" method="addVendedor" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#emptystatementnotinloop" priority="3">
+An empty statement (semicolon) not part of a loop
+</violation>
+<violation beginline="36" endline="36" begincolumn="62" endcolumn="62" rule="EmptyStatementNotInLoop" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" method="addVendedor" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#emptystatementnotinloop" priority="3">
+An empty statement (semicolon) not part of a loop
+</violation>
+<violation beginline="42" endline="42" begincolumn="62" endcolumn="62" rule="EmptyStatementNotInLoop" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" method="addVendedor" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#emptystatementnotinloop" priority="3">
+An empty statement (semicolon) not part of a loop
+</violation>
+<violation beginline="42" endline="42" begincolumn="62" endcolumn="62" rule="EmptyStatementNotInLoop" ruleset="Error Prone" package="estg.ipp.pt" class="GestaoEmpresaTest" method="addVendedor" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#emptystatementnotinloop" priority="3">
+An empty statement (semicolon) not part of a loop
+</violation>
+<violation beginline="55" endline="68" begincolumn="5" endcolumn="5" rule="JUnitTestContainsTooManyAsserts" ruleset="Best Practices" package="estg.ipp.pt" class="GestaoEmpresaTest" method="findLocal" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#junittestcontainstoomanyasserts" priority="3">
+Unit tests should not contain more than 1 assert(s).
+</violation>
+<violation beginline="71" endline="84" begincolumn="5" endcolumn="5" rule="JUnitTestContainsTooManyAsserts" ruleset="Best Practices" package="estg.ipp.pt" class="GestaoEmpresaTest" method="testFindLocal" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#junittestcontainstoomanyasserts" priority="3">
+Unit tests should not contain more than 1 assert(s).
+</violation>
+</file>
+<file name="C:\Users\Bruno\Desktop\ED.TP.EN.Grupo09\ed.tp.en.grupo09\ED.TP.EN.Grupo09\src\test\java\estg\ipp\pt\VendedorTest.java">
+<violation beginline="10" endline="76" begincolumn="1" endcolumn="1" rule="AtLeastOneConstructor" ruleset="Code Style" package="estg.ipp.pt" class="VendedorTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#atleastoneconstructor" priority="3">
+Each class should declare at least one constructor
+</violation>
+<violation beginline="11" endline="11" begincolumn="15" endcolumn="23" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="vendedor1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="11" endline="11" begincolumn="15" endcolumn="23" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="vendedor1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="11" endline="11" begincolumn="26" endcolumn="34" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="vendedor2" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="11" endline="11" begincolumn="26" endcolumn="34" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="vendedor2" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="11" endline="11" begincolumn="5" endcolumn="35" rule="DefaultPackage" ruleset="Code Style" package="estg.ipp.pt" class="VendedorTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#defaultpackage" priority="3">
+Use explicit scoping instead of the default package private level
+</violation>
+<violation beginline="11" endline="11" begincolumn="5" endcolumn="35" rule="OneDeclarationPerLine" ruleset="Best Practices" package="estg.ipp.pt" class="VendedorTest" variable="VariableDeclaratorId, VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#onedeclarationperline" priority="4">
+Use one line for each declaration, it enhances code readability.
+</violation>
+<violation beginline="12" endline="12" begincolumn="21" endcolumn="41" rule="RedundantFieldInitializer" ruleset="Performance" package="estg.ipp.pt" class="VendedorTest" variable="gestaoEmpresas" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_performance.html#redundantfieldinitializer" priority="3">
+Avoid using redundant field initializer for 'gestaoEmpresas'
+</violation>
+<violation beginline="12" endline="12" begincolumn="21" endcolumn="34" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="gestaoEmpresas" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="12" endline="12" begincolumn="21" endcolumn="34" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="gestaoEmpresas" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="12" endline="12" begincolumn="5" endcolumn="42" rule="DefaultPackage" ruleset="Code Style" package="estg.ipp.pt" class="VendedorTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#defaultpackage" priority="3">
+Use explicit scoping instead of the default package private level
+</violation>
+<violation beginline="13" endline="13" begincolumn="14" endcolumn="20" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="empresa" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="13" endline="13" begincolumn="14" endcolumn="20" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="empresa" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="13" endline="13" begincolumn="5" endcolumn="21" rule="DefaultPackage" ruleset="Code Style" package="estg.ipp.pt" class="VendedorTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#defaultpackage" priority="3">
+Use explicit scoping instead of the default package private level
+</violation>
+<violation beginline="14" endline="14" begincolumn="12" endcolumn="19" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="mercado1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="14" endline="14" begincolumn="12" endcolumn="19" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="mercado1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="14" endline="14" begincolumn="22" endcolumn="29" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="mercado2" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="14" endline="14" begincolumn="22" endcolumn="29" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="mercado2" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="14" endline="14" begincolumn="32" endcolumn="39" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="armazem1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="14" endline="14" begincolumn="32" endcolumn="39" rule="BeanMembersShouldSerialize" ruleset="Error Prone" package="estg.ipp.pt" class="VendedorTest" variable="armazem1" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_errorprone.html#beanmembersshouldserialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="14" endline="14" begincolumn="5" endcolumn="40" rule="DefaultPackage" ruleset="Code Style" package="estg.ipp.pt" class="VendedorTest" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_codestyle.html#defaultpackage" priority="3">
+Use explicit scoping instead of the default package private level
+</violation>
+<violation beginline="14" endline="14" begincolumn="5" endcolumn="40" rule="OneDeclarationPerLine" ruleset="Best Practices" package="estg.ipp.pt" class="VendedorTest" variable="VariableDeclaratorId, VariableDeclaratorId, VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#onedeclarationperline" priority="4">
+Use one line for each declaration, it enhances code readability.
+</violation>
+<violation beginline="28" endline="28" begincolumn="13" endcolumn="31" rule="AvoidPrintStackTrace" ruleset="Best Practices" package="estg.ipp.pt" class="VendedorTest" method="setUp" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#avoidprintstacktrace" priority="3">
+Avoid printStackTrace(); use a logger call instead.
+</violation>
+<violation beginline="33" endline="52" begincolumn="5" endcolumn="5" rule="JUnitTestContainsTooManyAsserts" ruleset="Best Practices" package="estg.ipp.pt" class="VendedorTest" method="addMercadoToVisit" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#junittestcontainstoomanyasserts" priority="3">
+Unit tests should not contain more than 1 assert(s).
+</violation>
+<violation beginline="34" endline="34" begincolumn="9" endcolumn="44" rule="OneDeclarationPerLine" ruleset="Best Practices" package="estg.ipp.pt" class="VendedorTest" method="addMercadoToVisit" variable="VariableDeclaratorId, VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#onedeclarationperline" priority="4">
+Use one line for each declaration, it enhances code readability.
+</violation>
+<violation beginline="55" endline="75" begincolumn="5" endcolumn="5" rule="JUnitTestContainsTooManyAsserts" ruleset="Best Practices" package="estg.ipp.pt" class="VendedorTest" method="removeMercado" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#junittestcontainstoomanyasserts" priority="3">
+Unit tests should not contain more than 1 assert(s).
+</violation>
+<violation beginline="56" endline="56" begincolumn="9" endcolumn="44" rule="OneDeclarationPerLine" ruleset="Best Practices" package="estg.ipp.pt" class="VendedorTest" method="removeMercado" variable="VariableDeclaratorId, VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.31.0/pmd_rules_java_bestpractices.html#onedeclarationperline" priority="4">
+Use one line for each declaration, it enhances code readability.
+</violation>
+</file>
+<configerror rule="LoosePackageCoupling" msg="No packages or classes specified"/>
+</pmd>

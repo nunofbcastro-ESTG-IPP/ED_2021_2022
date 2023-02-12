@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GestaoEmpresa.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt</a> &gt; <span class="el_source">GestaoEmpresa.java</span></div><h1>GestaoEmpresa.java</h1><pre class="source lang-java linenums">package estg.ipp.pt;
+
+import estg.ipp.pt.DataStructures.ArrayList.ArrayUnorderedList;
+import estg.ipp.pt.DataStructures.DoubleLinkedList.DoubleLinkedUnorderedList;
+import estg.ipp.pt.DataStructures.Exceptions.EmptyCollectionException;
+import estg.ipp.pt.DataStructures.Graphs.Caminho;
+import estg.ipp.pt.DataStructures.Graphs.LocalNetwork;
+import estg.ipp.pt.DataStructures.Interfaces.QueueADT;
+import estg.ipp.pt.DataStructures.Interfaces.StackADT;
+import estg.ipp.pt.DataStructures.Interfaces.UnorderedListADT;
+import estg.ipp.pt.DataStructures.Queue.LinkedQueue;
+import estg.ipp.pt.DataStructures.Stack.LinkedStack;
+import estg.ipp.pt.Enums.TipoLocal;
+import estg.ipp.pt.Exceptions.IllegalArgumentException;
+import estg.ipp.pt.Interfaces.*;
+
+import java.util.Iterator;
+
+public class GestaoEmpresa implements IGestaoEmpresas {
+    private final IEmpresa empresa;
+    private final UnorderedListADT&lt;IVendedor&gt; vendedores;
+    private final LocalNetwork&lt;ILocal&gt; localNetwork;
+
+<span class="fc" id="L24">    public GestaoEmpresa(IEmpresa empresa) throws IllegalArgumentException {</span>
+<span class="fc" id="L25">        this.localNetwork = new LocalNetwork&lt;&gt;();</span>
+<span class="fc" id="L26">        this.empresa = empresa;</span>
+<span class="fc" id="L27">        this.localNetwork.addVertex(empresa);</span>
+<span class="fc" id="L28">        this.vendedores = new DoubleLinkedUnorderedList&lt;&gt;();</span>
+<span class="fc" id="L29">    }</span>
+
+    @Override
+    public IEmpresa getEmpresa() {
+<span class="nc" id="L33">        return empresa;</span>
+    }
+
+    @Override
+    public boolean addVendedor(IVendedor vendedor) {
+<span class="fc bfc" id="L38" title="All 4 branches covered.">        if (vendedor != null &amp;&amp; !this.vendedores.contains(vendedor)) {</span>
+<span class="fc" id="L39">            this.vendedores.addToRear(vendedor);</span>
+<span class="fc" id="L40">            return true;</span>
+        }
+
+<span class="fc" id="L43">        return false;</span>
+    }
+
+    @Override
+    public Iterator&lt;IVendedor&gt; getVendedores() {
+<span class="nc" id="L48">        return this.vendedores.iterator();</span>
+    }
+
+    @Override
+    public void addMercado(IMercado mercado) {
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (mercado != null) {</span>
+            try {
+<span class="fc" id="L55">                this.localNetwork.addVertex(mercado);</span>
+<span class="nc" id="L56">            } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L57">                e.printStackTrace();</span>
+<span class="fc" id="L58">            }</span>
+        }
+<span class="fc" id="L60">    }</span>
+
+    @Override
+    public Iterator&lt;ILocal&gt; getMercados() {
+<span class="nc" id="L64">        return this.getTypeLocal(TipoLocal.MERCADO);</span>
+    }
+
+    @Override
+    public void addArmazem(IArmazem armazem) {
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        if (armazem != null) {</span>
+            try {
+<span class="fc" id="L71">                this.localNetwork.addVertex(armazem);</span>
+<span class="nc" id="L72">            } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L73">                e.printStackTrace();</span>
+<span class="fc" id="L74">            }</span>
+        }
+<span class="fc" id="L76">    }</span>
+
+    @Override
+    public Iterator&lt;ILocal&gt; getArmazens() {
+<span class="nc" id="L80">        return this.getTypeLocal(TipoLocal.ARMAZEM);</span>
+    }
+
+    /**
+     * Retorna um iterator para percorrer apenas os locais que sÃ£o do tipo enviado como parÃ¢metro
+     *
+     * @param tipoLocal Tipo do local
+     * @return Iterator de locais para percorrer os locais do tipo enviado
+     */
+    private Iterator&lt;ILocal&gt; getTypeLocal(TipoLocal tipoLocal) {
+<span class="fc" id="L90">        UnorderedListADT&lt;ILocal&gt; verticesList = new ArrayUnorderedList&lt;&gt;();</span>
+<span class="fc" id="L91">        Iterator&lt;ILocal&gt; it = this.localNetwork.getAllVertices();</span>
+
+        ILocal current;
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        while (it.hasNext()) {</span>
+<span class="fc" id="L95">            current = it.next();</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">            if (current.getTipo().equals(tipoLocal)) {</span>
+<span class="fc" id="L97">                verticesList.addToFront(current);</span>
+            }
+        }
+
+<span class="fc" id="L101">        return verticesList.iterator();</span>
+    }
+
+    @Override
+    public ILocal findLocal(String nome, TipoLocal tipoLocal){
+<span class="fc" id="L106">        Iterator&lt;ILocal&gt; it = getTypeLocal(tipoLocal);</span>
+
+        ILocal current;
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        while(it.hasNext()){</span>
+<span class="fc" id="L110">            current = it.next();</span>
+
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">            if(current.getNome().equals(nome)){</span>
+<span class="fc" id="L113">                return current;</span>
+            }
+        }
+
+<span class="fc" id="L117">        return null;</span>
+    }
+
+    @Override
+    public ILocal findLocal(String nome){
+<span class="fc" id="L122">        Iterator&lt;ILocal&gt; it = localNetwork.getAllVertices();</span>
+
+        ILocal current;
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        while(it.hasNext()){</span>
+<span class="fc" id="L126">            current = it.next();</span>
+
+<span class="fc bfc" id="L128" title="All 2 branches covered.">            if(current.getNome().equals(nome)){</span>
+<span class="fc" id="L129">                return current;</span>
+            }
+        }
+
+<span class="fc" id="L133">        return null;</span>
+    }
+
+    @Override
+    public void addCaminho(ILocal start, ILocal end, double weigth) {
+<span class="nc" id="L138">        localNetwork.addEdge(start, end, weigth);</span>
+<span class="nc" id="L139">    }</span>
+
+    /**
+     * Solicita o cÃ¡lculo da rota para cada vendedor.
+     * Este mÃ©todo, Ã© apenas um mÃ©todo para testes para que, possamos verificar se a rota estÃ¡ a ser bem calculada.
+     * PoderÃ¡ ser apagado posteriormente quando for colocado em prÃ¡tica a restante codificaÃ§Ã£o.
+     */
+    private QueueADT&lt;ILocal&gt; getRota(IVendedor vendedor) {
+<span class="nc" id="L147">        QueueADT&lt;ILocal&gt; rota = null;</span>
+
+        try {
+<span class="nc" id="L150">            rota = this.localNetwork.calculaRota(vendedor.getMercadosToVisit(), this.empresa);</span>
+<span class="nc" id="L151">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L152">            e.printStackTrace();</span>
+<span class="nc" id="L153">        }</span>
+
+<span class="nc" id="L155">        return rota;</span>
+    }
+
+    private int verifyMercadoriaEmFalta(IMercado mercado, IVendedor vendedor){
+<span class="nc" id="L159">        Iterator&lt;Integer&gt; clientesIt = mercado.getClientes();</span>
+        int currentClient;
+
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        while (clientesIt.hasNext()){</span>
+<span class="nc" id="L163">            currentClient = clientesIt.next();</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">            if(vendedor.getStock() &gt;= currentClient){</span>
+<span class="nc" id="L165">                mercado.removeCliente();</span>
+            } else{
+<span class="nc" id="L167">                return currentClient - vendedor.getStock();</span>
+            }
+        }
+
+<span class="nc" id="L171">        return 1;</span>
+    }
+
+    public void startRota(IVendedor vendedor) {
+<span class="nc" id="L175">        QueueADT&lt;ILocal&gt; rotaVendedor = null, caminhoArmazem;</span>
+<span class="nc" id="L176">        StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L177">        ILocal currentLocal = null;</span>
+
+<span class="nc" id="L179">        rotaVendedor = this.getRota(vendedor);</span>
+<span class="nc" id="L180">        int size = rotaVendedor.size();</span>
+
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        for (int i = 0; i &lt; size; i++) {</span>
+            try {
+<span class="nc" id="L184">                currentLocal = rotaVendedor.dequeue();</span>
+<span class="nc" id="L185">                System.out.println(&quot;\nO &quot; + vendedor.getName() + &quot; esta neste momento no(a) &quot; + currentLocal.getNome());</span>
+
+<span class="nc" id="L187">            } catch (EmptyCollectionException e) {</span>
+<span class="nc" id="L188">                e.printStackTrace();</span>
+<span class="nc" id="L189">            }</span>
+
+            try {
+<span class="nc bnc" id="L192" title="All 4 branches missed.">                if (currentLocal.getTipo().equals(TipoLocal.MERCADO) &amp;&amp; currentLocal.equals(vendedor.getCurrentMercadoToVisit())) {</span>
+<span class="nc bnc" id="L193" title="All 2 branches missed.">                    while (!vendedor.satisfazerClientes((IMercado) currentLocal)) {</span>
+<span class="nc" id="L194">                        System.out.println(&quot;\tO &quot; + vendedor.getName() + &quot; nao possui mercadoria suficiente! A verificar stock em armazens...&quot;);</span>
+<span class="nc" id="L195">                        caminhoArmazem = getArmazemMaisProximo(currentLocal, vendedor,</span>
+<span class="nc" id="L196">                                verifyMercadoriaEmFalta((IMercado) currentLocal, vendedor));</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">                        if (caminhoArmazem.size() == 0) {</span>
+<span class="nc" id="L198">                            System.out.println(&quot;\tNeste momento nao existe mercadoria capaz de satisfazer o cliente do(a) &quot; + currentLocal.getNome());</span>
+<span class="nc" id="L199">                            break;</span>
+                        } else {
+<span class="nc" id="L201">                            System.out.println(&quot;\tFoi encontrado um armazem capaz de satisfazer o cliente! Vendedor a deslocar-se para o mesmo...&quot;);</span>
+
+<span class="nc" id="L203">                            size = caminhoArmazem.size();</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">                            for (i = 0; i &lt; size; i++) {</span>
+                                try {
+<span class="nc" id="L206">                                    System.out.println(&quot;\t\tO &quot; + vendedor.getName() + &quot; esta neste momento no(a) &quot; + caminhoArmazem.dequeue().getNome());</span>
+<span class="nc" id="L207">                                } catch (EmptyCollectionException e) {</span>
+<span class="nc" id="L208">                                    e.printStackTrace();</span>
+<span class="nc" id="L209">                                }</span>
+                            }
+<span class="nc" id="L211">                            vendedor.setStock(vendedor.getCapacidade());</span>
+                        }
+                    }
+<span class="nc" id="L214">                    vendedor.removeMercado((IMercado) currentLocal);</span>
+                }
+<span class="nc" id="L216">            } catch (EmptyCollectionException e) {</span>
+<span class="nc" id="L217">                e.printStackTrace();</span>
+<span class="nc" id="L218">            }</span>
+        }
+<span class="nc" id="L220">        System.out.println(&quot;Fim da rota&quot;);</span>
+<span class="nc" id="L221">    }</span>
+
+    @Override
+    public void listarMercados() {
+<span class="nc" id="L225">        Iterator&lt;ILocal&gt; mercados = this.getMercados();</span>
+
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        while (mercados.hasNext()){</span>
+<span class="nc" id="L228">            System.out.println(mercados.next().toString());</span>
+        }
+<span class="nc" id="L230">    }</span>
+
+    private QueueADT&lt;ILocal&gt; getArmazemMaisProximo(ILocal startLocal, IVendedor vendedor, int quantidadeEmFalta) {
+<span class="nc" id="L233">        Iterator&lt;ILocal&gt; armazensIt = this.getArmazens();</span>
+        Iterator&lt;ILocal&gt; caminhoMaisCurtoIt;
+<span class="nc" id="L235">        ILocal currentArmazem, armazemMaisProximo = null;</span>
+<span class="nc" id="L236">        QueueADT&lt;ILocal&gt; caminhoMaisCurto = new LinkedQueue&lt;&gt;();</span>
+<span class="nc" id="L237">        StackADT&lt;ILocal&gt; caminhoDeVolta = new LinkedStack&lt;&gt;();</span>
+<span class="nc" id="L238">        double menorCaminho = Double.POSITIVE_INFINITY;</span>
+
+<span class="nc bnc" id="L240" title="All 2 branches missed.">        while (armazensIt.hasNext()) {</span>
+<span class="nc" id="L241">            currentArmazem = armazensIt.next();</span>
+
+<span class="nc" id="L243">            double currentArmazemCaminho = this.localNetwork.shortestPathWeight(startLocal, currentArmazem);</span>
+
+<span class="nc bnc" id="L245" title="All 4 branches missed.">            if (currentArmazemCaminho &lt; menorCaminho &amp;&amp; ((IArmazem) currentArmazem).getStock() &gt;= quantidadeEmFalta) {</span>
+<span class="nc" id="L246">                menorCaminho = currentArmazemCaminho;</span>
+<span class="nc" id="L247">                armazemMaisProximo = currentArmazem;</span>
+            }
+<span class="nc" id="L249">        }</span>
+
+<span class="nc bnc" id="L251" title="All 2 branches missed.">        if(armazemMaisProximo != null){</span>
+<span class="nc" id="L252">            int quantidadeToAbastecer = vendedor.getCapacidade() - vendedor.getStock();</span>
+<span class="nc" id="L253">            int diff = ((IArmazem)armazemMaisProximo).getStock() - quantidadeToAbastecer;</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">            if (diff &gt;= 0) {</span>
+<span class="nc" id="L255">                vendedor.setStock(quantidadeToAbastecer);</span>
+<span class="nc" id="L256">                ((IArmazem) armazemMaisProximo).decremetStock(quantidadeToAbastecer);</span>
+            }
+            else {
+<span class="nc" id="L259">                vendedor.setStock(quantidadeEmFalta);</span>
+<span class="nc" id="L260">                ((IArmazem) armazemMaisProximo).decremetStock(quantidadeEmFalta);</span>
+            }
+        }
+
+<span class="nc" id="L264">        caminhoMaisCurtoIt = this.localNetwork.iteratorShortestPath(startLocal, armazemMaisProximo);</span>
+        ILocal currentLocal;
+<span class="nc bnc" id="L266" title="All 2 branches missed.">        while (caminhoMaisCurtoIt.hasNext()) {</span>
+<span class="nc" id="L267">            currentLocal = caminhoMaisCurtoIt.next();</span>
+<span class="nc" id="L268">            caminhoMaisCurto.enqueue(currentLocal);</span>
+<span class="nc" id="L269">            caminhoDeVolta.push(currentLocal);</span>
+        }
+
+        try {
+<span class="nc" id="L273">            caminhoMaisCurto.dequeue();</span>
+<span class="nc" id="L274">        } catch (EmptyCollectionException e) {</span>
+<span class="nc" id="L275">            e.printStackTrace();</span>
+<span class="nc" id="L276">        }</span>
+
+        try {
+<span class="nc" id="L279">            caminhoDeVolta.pop();</span>
+<span class="nc" id="L280">        } catch (EmptyCollectionException e) {</span>
+<span class="nc" id="L281">            e.printStackTrace();</span>
+<span class="nc" id="L282">        }</span>
+
+<span class="nc" id="L284">        int size = caminhoDeVolta.size();</span>
+
+<span class="nc bnc" id="L286" title="All 2 branches missed.">        for (int i = 0; i &lt; size; i++){</span>
+            try {
+<span class="nc" id="L288">                caminhoMaisCurto.enqueue(caminhoDeVolta.pop());</span>
+<span class="nc" id="L289">            } catch (EmptyCollectionException e) {</span>
+<span class="nc" id="L290">                e.printStackTrace();</span>
+<span class="nc" id="L291">            }</span>
+        }
+
+<span class="nc" id="L294">        return caminhoMaisCurto;</span>
+    }
+
+    @Override
+    public void listarVendedores() {
+<span class="nc" id="L299">        Iterator&lt;IVendedor&gt; vendedores = this.getVendedores();</span>
+
+<span class="nc bnc" id="L301" title="All 2 branches missed.">        while (vendedores.hasNext()){</span>
+<span class="nc" id="L302">            System.out.println(vendedores.next().toString());</span>
+        }
+<span class="nc" id="L304">    }</span>
+
+    @Override
+    public void listarArmazens() {
+<span class="nc" id="L308">        Iterator&lt;ILocal&gt; armazens = this.getArmazens();</span>
+
+<span class="nc bnc" id="L310" title="All 2 branches missed.">        while (armazens.hasNext()){</span>
+<span class="nc" id="L311">            System.out.println(armazens.next().toString());</span>
+        }
+<span class="nc" id="L313">    }</span>
+
+    @Override
+    public Iterator&lt;Caminho&lt;ILocal&gt;&gt; getCaminhos() {
+<span class="nc" id="L317">        return localNetwork.getCaminhos();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

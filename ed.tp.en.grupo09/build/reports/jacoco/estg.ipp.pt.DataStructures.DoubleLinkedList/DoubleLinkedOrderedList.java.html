@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoubleLinkedOrderedList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt.DataStructures.DoubleLinkedList</a> &gt; <span class="el_source">DoubleLinkedOrderedList.java</span></div><h1>DoubleLinkedOrderedList.java</h1><pre class="source lang-java linenums">package estg.ipp.pt.DataStructures.DoubleLinkedList;
+
+import estg.ipp.pt.DataStructures.Exceptions.NonComparableElementException;
+import estg.ipp.pt.DataStructures.Interfaces.OrderedListADT;
+import estg.ipp.pt.DataStructures.Nodes.DoubleNode;
+
+<span class="nc" id="L7">public class DoubleLinkedOrderedList&lt;T&gt; extends DoubleLinkedList&lt;T&gt; implements OrderedListADT&lt;T&gt; {</span>
+
+    @Override
+    public void add(T element) throws NonComparableElementException {
+
+<span class="nc bnc" id="L12" title="All 2 branches missed.">        if (!(element instanceof Comparable)) {</span>
+<span class="nc" id="L13">            throw new NonComparableElementException(&quot;Element not extend Comparable&quot;);</span>
+        }
+
+<span class="nc" id="L16">        DoubleNode&lt;T&gt; tmpNew = new DoubleNode&lt;&gt;(element);</span>
+<span class="nc" id="L17">        Comparable cElement = (Comparable) element;</span>
+
+<span class="nc bnc" id="L19" title="All 2 branches missed.">        if (super.isEmpty()) {</span>
+<span class="nc" id="L20">            super.head = super.tail = tmpNew;</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        } else if (cElement.compareTo(super.head.getElement()) &lt;= 0) {</span>
+<span class="nc" id="L22">            super.head.setPrevious(tmpNew);</span>
+<span class="nc" id="L23">            tmpNew.setNext(super.head);</span>
+<span class="nc" id="L24">            tmpNew.setPrevious(null);</span>
+<span class="nc" id="L25">            super.head = tmpNew;</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        } else if (cElement.compareTo(super.tail.getElement()) &gt;= 0) {</span>
+<span class="nc" id="L27">            super.tail.setNext(tmpNew);</span>
+<span class="nc" id="L28">            tmpNew.setPrevious(super.tail);</span>
+<span class="nc" id="L29">            tmpNew.setNext(null);</span>
+<span class="nc" id="L30">            super.tail = tmpNew;</span>
+        } else {
+<span class="nc" id="L32">            DoubleNode&lt;T&gt; tmpNode = super.head.getNext();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            while ((cElement.compareTo(tmpNode.getElement()) &gt; 0)) {</span>
+<span class="nc" id="L34">                tmpNode = tmpNode.getNext();</span>
+            }
+<span class="nc" id="L36">            tmpNew.setNext(tmpNode);</span>
+<span class="nc" id="L37">            tmpNew.setPrevious(tmpNode.getPrevious());</span>
+<span class="nc" id="L38">            tmpNode.getPrevious().setNext(tmpNew);</span>
+<span class="nc" id="L39">            tmpNode.setPrevious(tmpNew);</span>
+        }
+
+<span class="nc" id="L42">        super.size++;</span>
+<span class="nc" id="L43">        super.modCount++;</span>
+<span class="nc" id="L44">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

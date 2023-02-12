@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ArrayList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ED.TP.EN.Grupo09</a> &gt; <a href="index.source.html" class="el_package">estg.ipp.pt.DataStructures.ArrayList</a> &gt; <span class="el_source">ArrayList.java</span></div><h1>ArrayList.java</h1><pre class="source lang-java linenums">package estg.ipp.pt.DataStructures.ArrayList;
+
+import estg.ipp.pt.DataStructures.Interfaces.ListADT;
+import estg.ipp.pt.DataStructures.Exceptions.EmptyCollectionException;
+import estg.ipp.pt.DataStructures.Exceptions.ElementNotFoundException;
+import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
+import java.util.Iterator;
+
+abstract class ArrayList&lt;T&gt; implements ListADT&lt;T&gt; {
+
+<span class="fc" id="L12">    private class ArrayListInterator implements Iterator&lt;T&gt; {</span>
+
+        private int nextPosition;
+        private final int expectedModCount;
+
+        {
+<span class="fc" id="L18">            nextPosition = 0;</span>
+<span class="fc" id="L19">            expectedModCount = modCount;</span>
+<span class="fc" id="L20">        }</span>
+
+        @Override
+        public boolean hasNext() {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">            return this.nextPosition &lt; size();</span>
+        }
+
+        @Override
+        public T next() {
+<span class="fc" id="L29">            this.checkForComodification();</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">            if (!hasNext()) {</span>
+<span class="nc" id="L31">                throw new NoSuchElementException();</span>
+            }
+<span class="fc" id="L33">            return (T) arrayList[this.nextPosition++];</span>
+        }
+
+        private void checkForComodification() {
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">            if (expectedModCount != modCount) {</span>
+<span class="nc" id="L38">                throw new ConcurrentModificationException();</span>
+            }
+<span class="fc" id="L40">        }</span>
+
+    }
+
+<span class="pc" id="L44">    private final int DEFAULT_CAPACITY = 100;</span>
+
+    protected T[] arrayList;
+    protected int size;
+    protected int modCount;
+
+    {
+<span class="pc" id="L51">        this.size = 0;</span>
+<span class="pc" id="L52">        this.modCount = 0;</span>
+    }
+
+<span class="fc" id="L55">    public ArrayList() {</span>
+<span class="fc" id="L56">        this.arrayList = (T[]) (new Object[this.DEFAULT_CAPACITY]);</span>
+<span class="fc" id="L57">    }</span>
+
+<span class="nc" id="L59">    public ArrayList(int capacity) {</span>
+<span class="nc" id="L60">        this.arrayList = (T[]) (new Object[capacity]);</span>
+<span class="nc" id="L61">    }</span>
+
+    @Override
+    public T removeFirst() throws EmptyCollectionException {
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L66">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+<span class="nc" id="L68">        return removeAux(0);</span>
+    }
+
+    @Override
+    public T removeLast() throws EmptyCollectionException {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L74">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+<span class="nc" id="L76">        return removeAux(this.size() - 1);</span>
+    }
+
+    @Override
+    public T remove(T element) throws EmptyCollectionException, ElementNotFoundException {
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L82">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+        
+<span class="nc" id="L85">        int position = search(element);</span>
+        
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if(position&lt;0){</span>
+<span class="nc" id="L88">            throw new ElementNotFoundException(&quot;Value doesn't exist in list.&quot;);</span>
+        }
+        
+<span class="nc" id="L91">        return removeAux(position);</span>
+    }
+
+    @Override
+    public T first() throws EmptyCollectionException {
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L97">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+<span class="nc" id="L99">        return arrayList[0];</span>
+    }
+
+    @Override
+    public T last() throws EmptyCollectionException {
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (this.isEmpty()) {</span>
+<span class="nc" id="L105">            throw new EmptyCollectionException(&quot;Empty list&quot;);</span>
+        }
+<span class="nc" id="L107">        return arrayList[this.size() - 1];</span>
+    }
+
+    @Override
+    public boolean contains(T target) {
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        return search(target)&gt;0;</span>
+    }
+
+    @Override
+    public boolean isEmpty() {
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        return this.size() == 0;</span>
+    }
+
+    @Override
+    public int size() {
+<span class="fc" id="L122">        return this.size;</span>
+    }
+
+    @Override
+    public Iterator&lt;T&gt; iterator() {
+<span class="fc" id="L127">        return new ArrayListInterator();</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L132">        StringBuilder sb = new StringBuilder();</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        for (int i = 0; i &lt; this.size(); i++) {</span>
+<span class="nc" id="L134">            sb.append(arrayList[i].toString()).append(&quot;\n&quot;);</span>
+        }
+<span class="nc" id="L136">        return sb.toString();</span>
+    }
+
+    private T removeAux(int position) {
+<span class="nc" id="L140">        T tmp = null;</span>
+<span class="nc bnc" id="L141" title="All 4 branches missed.">        if (position &gt;= 0 &amp;&amp; position &lt; this.size()) {</span>
+<span class="nc" id="L142">            tmp = this.arrayList[position];</span>
+<span class="nc" id="L143">            this.arrayList[position] = null;</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            for (int i = position; i &lt; this.size() - 1; i++) {</span>
+<span class="nc" id="L145">                this.arrayList[i] = this.arrayList[i + 1];</span>
+            }
+<span class="nc" id="L147">            this.arrayList[this.size()-1] = null;</span>
+<span class="nc" id="L148">            this.size--;</span>
+<span class="nc" id="L149">            this.modCount--;</span>
+        }
+<span class="nc" id="L151">        return tmp;</span>
+    }
+
+    private int search(T element) {
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        for (int i = 0; i &lt; this.size(); i++) {</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">            if (element.equals(this.arrayList[i])) {</span>
+<span class="nc" id="L157">                return i;</span>
+            }
+        }
+<span class="nc" id="L160">        return -1;</span>
+    }
+
+    protected void expandCapacity() {
+<span class="nc" id="L164">        T[] tmp = (T[]) (new Object[(int) Math.ceil(this.size() * (1.5))]);</span>
+<span class="nc" id="L165">        System.arraycopy(this.arrayList, 0, tmp, 0, this.size());</span>
+<span class="nc" id="L166">        this.arrayList = tmp;</span>
+<span class="nc" id="L167">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

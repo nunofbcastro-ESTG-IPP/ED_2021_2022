@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="estg.ipp.pt.GestaoEmpresaTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-02-03T14:21:47" hostname="DESKTOP-F5K6PUI" time="0.055">
+  <properties/>
+  <testcase name="findLocal()" classname="estg.ipp.pt.GestaoEmpresaTest" time="0.046"/>
+  <testcase name="testFindLocal()" classname="estg.ipp.pt.GestaoEmpresaTest" time="0.001"/>
+  <testcase name="addVendedor()" classname="estg.ipp.pt.GestaoEmpresaTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
